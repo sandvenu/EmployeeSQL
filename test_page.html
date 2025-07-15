@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Test</title>
+</head>
+<body>
+    <h1>Chatbot API Test</h1>
+    
+    <h2>Chat Test</h2>
+    <input type="text" id="message" placeholder="Enter message" value="How many employees?">
+    <button onclick="testChat()">Send</button>
+    <div id="chatResult"></div>
+    
+    <h2>Reports</h2>
+    <button onclick="getReports()">Get Reports</button>
+    <div id="reportsResult"></div>
+    
+    <script>
+        async function testChat() {
+            try {
+                const message = document.getElementById('message').value;
+                document.getElementById('chatResult').innerHTML = 'Loading...';
+                
+                const response = await fetch('http://localhost:9000/api/chat', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({message: message})
+                });
+                const result = await response.json();
+                document.getElementById('chatResult').innerHTML = '<pre>' + JSON.stringify(result, null, 2) + '</pre>';
+            } catch (error) {
+                document.getElementById('chatResult').innerHTML = 'Error: ' + error.message;
+            }
+        }
+        
+        async function getReports() {
+            try {
+                document.getElementById('reportsResult').innerHTML = 'Loading...';
+                
+                const response = await fetch('http://localhost:9000/api/reports');
+                const result = await response.json();
+                document.getElementById('reportsResult').innerHTML = '<pre>' + JSON.stringify(result, null, 2) + '</pre>';
+            } catch (error) {
+                document.getElementById('reportsResult').innerHTML = 'Error: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>

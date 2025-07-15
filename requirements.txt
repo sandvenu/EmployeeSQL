@@ -1,0 +1,15 @@
+fastapi==0.110.1
+uvicorn[standard]
+psycopg2-binary
+sqlalchemy
+langchain
+langchain-openai
+langchain-core
+python-dotenv
+redis
+chainlit==1.3.0
+matplotlib
+plotly
+pandas
+apscheduler
+pydantic==2.5.3
